@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>USERS</title>
+</head>
+<body>
+<h2>All Users</h2>
+<table border="1px" cellpadding="2" cellspacing="">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Role</th>
+        <th>Operations</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+
+        <td th:text="${user.id}">Id</td>
+        <td th:text="${user.firstName}">First name</td>
+        <td th:text="${user.LastName}">Last name</td>
+        <td th:text="${user.email}">Email</td>
+        <td th:text="${user.username}">Username</td>
+        <td th:text="${user.password}">Password</td>
+        <td>
+           <input type="hidden" th:each="role: ${user.getRoles()}" th:text="${role.getRole()} + '  '" >
+
+        </td>
+        <td>
+            <input type="button" value="Edit"
+                   th:onclick="'window.location.href = \'' + @{/admin/user/{id}(id=${user.id})} + '\''"/>
+            <input type="button" value="Delete"
+                   th:onclick="'window.location.href = \'' + @{/admin/delete/{id}(id=${user.id})} + '\''"/>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+    <br>
+<input type="button" value="Add user"
+onclick="window.location.href = '/admin/add'"/>
+<br>
+<br>
+<input type="button" value="LOGOUT"
+       onclick="window.location.href = '/logout'"/>
+
+</body>
+</html>
